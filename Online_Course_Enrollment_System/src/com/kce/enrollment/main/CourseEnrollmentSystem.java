@@ -21,59 +21,63 @@ public class CourseEnrollmentSystem {
             System.out.println("6. Exit");
             System.out.print("Enter choice: ");
             choice = sc.nextInt();
-            sc.nextLine(); // consume newline
+            sc.nextLine(); 
 
             switch (choice) {
                 case 1:
-                    System.out.print("Course ID: "); 
+                    System.out.print("Course ID: ");
                     int cid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Course Name: "); 
+                    System.out.print("Course Name: ");
                     String cname = sc.nextLine();
-                    System.out.print("Capacity: "); 
+                    System.out.print("Capacity: ");
                     int cap = sc.nextInt();
-                    System.out.print("Fee: "); 
+                    System.out.print("Fee: ");
                     double fee = sc.nextDouble();
-                    service.addCourse(new Course(cid, cname, cap, fee));
+                    sc.nextLine(); 
+
+                    System.out.print("Instructor ID: ");
+                    int iid = sc.nextInt(); sc.nextLine();
+                    System.out.print("Instructor Name: ");
+                    String iname = sc.nextLine();
+
+                    Instructor instr = new Instructor(iid, iname);
+                    service.addCourse(new Course(cid, cname, cap, fee, instr));
                     System.out.println("Course added!");
                     break;
 
                 case 2:
-                    System.out.print("Student ID: "); 
+                    System.out.print("Student ID: ");
                     int sid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Student Name: "); 
+                    System.out.print("Student Name: ");
                     String sname = sc.nextLine();
-                    System.out.print("Premium? (true/false): "); 
+                    System.out.print("Premium? (true/false): ");
                     boolean premium = sc.nextBoolean();
                     if (premium) service.addStudent(new PremiumStudent(sid, sname));
                     else service.addStudent(new Student(sid, sname));
                     System.out.println("Student added!");
                     break;
 
-                case 3:
-                    System.out.print("Student ID: "); 
+                case 3: 
+                    System.out.print("Student ID: ");
                     int esid = sc.nextInt();
-                    System.out.print("Course ID: "); 
+                    System.out.print("Course ID: ");
                     int ecid = sc.nextInt();
-                    System.out.print("Payment Amount: "); 
+                    System.out.print("Payment Amount: ");
                     double amt = sc.nextDouble();
 
                     Student s = service.findStudent(esid);
                     Course c = service.findCourse(ecid);
                     Payment p = new Payment(amt);
 
-                    // Check if student exists
                     if (s == null) {
                         System.out.println("Error: Student not found!");
                         break;
                     }
-
-                    // Check if course exists
                     if (c == null) {
                         System.out.println("Error: Course not found!");
                         break;
                     }
 
-                    // Attempt enrollment and handle exceptions
                     try {
                         Enrollment e = service.enrollStudent(s, c, p);
                         Receipt r = new Receipt(s, c, p);
@@ -84,15 +88,15 @@ public class CourseEnrollmentSystem {
                     }
                     break;
 
-                case 4:
+                case 4: 
                     service.displayCourses();
                     break;
 
-                case 5:
+                case 5: 
                     service.displayStudents();
                     break;
 
-                case 6:
+                case 6: 
                     System.out.println("Exiting...");
                     break;
 

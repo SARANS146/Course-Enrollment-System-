@@ -5,17 +5,19 @@ public class Course {
     private String name;
     private int capacity;
     private double fee;
+    private Instructor instructor;  // Aggregation
 
-    public Course(int courseId, String name, int capacity, double fee) {
+    public Course(int courseId, String name, int capacity, double fee, Instructor instructor) {
         this.courseId = courseId;
         this.name = name;
         this.capacity = capacity;
         this.fee = fee;
+        this.instructor = instructor;
     }
 
     public int getCourseId() 
-    { 
-    	return courseId; 
+    {
+    	return courseId;
     	}
     public String getName()
     {
@@ -23,24 +25,29 @@ public class Course {
     	}
     public int getCapacity()
     {
-    	return capacity; 
+    	return capacity;
     	}
     public double getFee()
     {
     	return fee; 
     	}
+    public Instructor getInstructor()
+    {
+    	return instructor; 
+    	}
 
-    public boolean hasSeats() 
+    public boolean hasSeats()
     {
     	return capacity > 0;
     	}
-    public void reduceCapacity() 
+    public void reduceCapacity()
     {
     	if (capacity > 0) capacity--;
     	}
 
     @Override
     public String toString() {
-        return courseId + " - " + name + " | Fee: " + fee + " | Seats left: " + capacity;
+        return courseId + " - " + name + " | Fee: " + fee + " | Seats left: " + capacity
+                + " | Instructor: " + (instructor != null ? instructor.getName() : "None");
     }
 }
